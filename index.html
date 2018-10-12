@@ -5,6 +5,14 @@
 	<title>会议室时间控件选择封装</title>
 </head>
 <style>
+	.change{
+		width:700px;
+		margin:0 auto;
+	}
+	.change span{
+		font-size: 14px;
+		color: #666;
+	}
 	.container{
 		width:700px;
 		margin:0 auto;
@@ -71,6 +79,10 @@
 	}
 </style>
 <body>
+	<div class="change">
+		<span>选择时间：</span>
+		<span class="choose_time"></span>
+	</div>
 	<div class="container"></div>
 </body>
 <script src="jquery-2.0.3.min.js"></script>
@@ -130,15 +142,16 @@
 					// $('.ul li').unbind('mouseup',fn3);
 					if($(this).hasClass('possession')){
 						alert('当前时间段已经被预约!请重新预约');
+						$('.choose_time').html();
 						 $('.container ul li').removeClass('service');
 					}else{
 						$(this).addClass('service').siblings().removeClass('service');
-
-					}
+						
+					 }
 
 				});
 				// 鼠标拖拽过程
-				// $(this).bind('mousemove',fn2 = function(){
+				// $(this).unbind('mousemove').bind('mousemove',fn2 = function(){
 				// 	if($('.container .ul li').hasClass('service')){
 				// 		$('.container .ul li').eq($(this).index()).addClass('service');
 				// 	}else{
@@ -150,15 +163,18 @@
 					index++;
 					if($(this).hasClass('possession')){
 						alert('当前时间段已经被预约!请重新预约');
+						$('.choose_time').html();
 						 $('.container ul li').removeClass('service');
 					}else{
 						$(this).addClass('service');
-						// $('.ul li').unbind('mousemove',fn2);
-						// $('.ul li').each(function(i,v){
-						// 	$(this).unbind('mousemove').on('mousemove',function(){
-						// 		return false;
-						// 	});
-						// });
+						var sr = [];
+						$('.service').each(function(i,v){
+			                sr.push($(v).attr('type'));
+			            });
+			            if(sr.length == 1){
+			                sr[1] = '请选择结束时间哦~'
+			            }
+			            $('.choose_time').html(sr[0]+ ' --- '+sr[1]);
 					}
 					var dist = []; //声明数组用来存放鼠标按下、抬起。所对应的节点
 					$('.ul li').each(function(i,v){
@@ -174,6 +190,7 @@
 						if($(v).hasClass('possession')){
 							alert('您所选时间段有时间被预约过！请重新选择时间');
 							$('.container ul li').removeClass('service');
+							$('.choose_time').html();
 							return false;
 						}
 					});
