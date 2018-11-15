@@ -77,6 +77,11 @@
 	.ul li:last-child{
 		border-right:none;
 	}
+	p{
+		width:100%;
+		text-align: center;
+		color:red;
+	}
 </style>
 <body>
 	<div class="change">
@@ -84,6 +89,7 @@
 		<span class="choose_time"></span>
 	</div>
 	<div class="container"></div>
+	<p>注释：假设结束时间是到09：15，但用户选择要从09：15开始选择，所以9：15是可以被选择的</p>
 </body>
 <script src="jquery-2.0.3.min.js"></script>
 <script>
@@ -132,6 +138,15 @@
 						// 已经被预约的时间段;
 						$(this).addClass('possession');
 					}
+					 if( i== st){
+		                $(this).removeClass('possession').addClass('d');
+		            }
+		            if( i == et){
+		                $(this).removeClass('possession').addClass('d');
+		            }
+		            if(i == '39'){
+		                $(this).addClass('radius');
+		            }
 				});
 			});
 			// 拖拽选择时间
